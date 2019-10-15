@@ -16,9 +16,14 @@ class Login extends Component {
     };
   }
 
+componentDidMount() {
+    if(this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard')
+    }
+  }
 componentWillReceiveProps(nextProps) {
   if(nextProps.auth.isAuthenticated) {
-    this.props.push('/dashboard')
+    this.props.history.push('/dashboard')
   }
   if(nextProps.errors) {
     this.setState({
@@ -86,7 +91,7 @@ return (
                   error={errors.password}
                   id="password"
                   type="password"
-                  lassName={classnames('', {
+                  className={classnames('', {
                     invalid: errors.password || errors.passwordincorrect
                   })}
                 />
@@ -118,7 +123,7 @@ return (
   }
 }
 
-LoginpropTypes = {
+Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
